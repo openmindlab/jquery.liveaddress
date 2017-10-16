@@ -48,7 +48,8 @@
 		submitSelector: "[type=submit], [type=image], [type=button]:last, button:last", // Selector to find a likely submit button or submit image (in a form)
 		target: "US",
 		preferRatio: 0.333333333,
-		ajaxSettings: {}
+		ajaxSettings: {},
+		smartyTag: true
 	};
 	var config = {}; // Configuration settings as set by the user or just the defaults
 	var forms = []; // List of forms (which hold lists of addresses)
@@ -130,6 +131,7 @@
 		config.agent = typeof config.agent === "undefined" ? "" : config.agent;
 		config.preferRatio = config.preferRatio || defaults.preferRatio;
 		config.ajaxSettings = config.ajaxSettings || defaults.ajaxSettings;
+		config.smartyTag = typeof config.smartyTag === "undefined" ? defaults.smartyTag : config.smartyTag;
 
 		if (typeof config.autocomplete === "number" && config.autocomplete < 1) {
 			config.autocomplete = false;
@@ -582,22 +584,26 @@
 				for (var i = 0; i < addresses.length; i++) {
 					var id = addresses[i].id();
 					$("body").append("<div class=\"smarty-ui\"><div title=\"Loading...\" class=\"smarty-dots smarty-addr-" + id + "\"></div></div>");
-					var offset = uiTagOffset(addresses[i].corners(true));
-					$("body").append("<div class=\"smarty-ui\" style=\"top: " + offset.top + "px; left: " + offset.left +
-						"px;\"><a href=\"javascript:\" class=\"smarty-tag smarty-tag-grayed smarty-addr-" + id +
-						"\" title=\"Address not verified. Click to verify.\" data-addressid=\"" + id +
-						"\"><span class=\"smarty-tag-check\">&#10003;</span><span class=\"smarty-tag-text\">Verify</span></a></div>");
+					if (config.smartyTag) {
+  						var offset = uiTagOffset(addresses[i].corners(true));
+  						$("body").append("<div class=\"smarty-ui\" style=\"top: " + offset.top + "px; left: " + offset.left +
+  							"px;\"><a href=\"javascript:\" class=\"smarty-tag smarty-tag-grayed smarty-addr-" + id +
+  							"\" title=\"Address not verified. Click to verify.\" data-addressid=\"" + id +
+  							"\"><span class=\"smarty-tag-check\">&#10003;</span><span class=\"smarty-tag-text\">Verify</span></a></div>");
+  					}
 
 					// Move the UI elements around when browser window is resized
 					$(window).on("resize.smarty", {
 						addr: addresses[i]
 					}, function (e) {
 						var addr = e.data.addr;
-						var offset = uiTagOffset(addr.corners(true)); // Position of lil' tag
-						$(".smarty-tag.smarty-addr-" + addr.id())
-							.parent(".smarty-ui")
-							.css("top", offset.top + "px")
-							.css("left", offset.left + "px");
+						if (config.smartyTag) {
+  							var offset = uiTagOffset(addr.corners(true)); // Position of lil' tag
+  							$(".smarty-tag.smarty-addr-" + addr.id())
+  								.parent(".smarty-ui")
+  								.css("top", offset.top + "px")
+  								.css("left", offset.left + "px");
+  						}
 
 						var addrOffset = addr.corners(); // Position of any popup windows
 						$(".smarty-popup.smarty-addr-" + addr.id())
@@ -624,21 +630,23 @@
 					});
 				}
 
-				$("body").on("click", ".smarty-tag-grayed", function (e) {
-					// "Verify" clicked -- manually invoke verification
-					var addrId = $(this).data("addressid");
-					instance.verify(addrId);
-				});
+				if (config.smartyTag) {
+  					$("body").on("click", ".smarty-tag-grayed", function (e) {
+  						// "Verify" clicked -- manually invoke verification
+  						var addrId = $(this).data("addressid");
+  						instance.verify(addrId);
+  					});
 
-				$("body").on("click", ".smarty-undo", function (e) {
-					// "Undo" clicked -- replace field values with previous input
-					var addrId = $(this).parent().data("addressid");
-					var addr = instance.getMappedAddressByID(addrId);
-					addr.undo(true);
-					// If fields are re-mapped after an address was verified, it loses its "accepted" status even if no values were changed.
-					// Thus, in some rare occasions, the undo link and the "verified!" text may not disappear when the user clicks "Undo",
-					// The undo functionality still works in those cases, but with no visible changes, the address doesn't fire "AddressChanged"...
-				});
+					$("body").on("click", ".smarty-undo", function (e) {
+						// "Undo" clicked -- replace field values with previous input
+						var addrId = $(this).parent().data("addressid");
+						var addr = instance.getMappedAddressByID(addrId);
+						addr.undo(true);
+						// If fields are re-mapped after an address was verified, it loses its "accepted" status even if no values were changed.
+						// Thus, in some rare occasions, the undo link and the "verified!" text may not disappear when the user clicks "Undo",
+						// The undo functionality still works in those cases, but with no visible changes, the address doesn't fire "AddressChanged"...
+					});
+				}
 
 				// Prepare autocomplete UI
 				if (config.autocomplete && config.key) {
@@ -1200,8 +1208,12 @@
 			}
 
 			$(".smarty-ui").off("click", ".smarty-suggestion").off("mouseover", ".smarty-suggestion").off("mouseleave", ".smarty-suggestion").remove();
-			$("body").off("click", ".smarty-undo");
-			$("body").off("click", ".smarty-tag-grayed");
+			
+			if (config.smartyTag) {
+  				$("body").off("click", ".smarty-undo");
+  				$("body").off("click", ".smarty-tag-grayed");
+  			}
+
 			$(window).off("resize.smarty");
 			$(document).off("keyup");
 
@@ -1392,7 +1404,7 @@
 		};
 
 		this.markAsValid = function (addr) {
-			if (!config.ui || !addr)
+			if (!config.ui || !addr || !config.smartyTag)
 				return;
 
 			var domTag = $(".smarty-tag.smarty-tag-grayed.smarty-addr-" + addr.id());
@@ -1406,7 +1418,7 @@
 
 		this.unmarkAsValid = function (addr) {
 			var validSelector = ".smarty-tag.smarty-addr-" + addr.id();
-			if (!config.ui || !addr || $(validSelector).length == 0)
+			if (!config.ui || !addr || !config.smartyTag || $(validSelector).length == 0)
 				return;
 
 			var domTag = $(".smarty-tag.smarty-tag-green.smarty-addr-" + addr.id());
@@ -1955,7 +1967,7 @@
 
 			if (differentVal && !keepState) {
 				ui.unmarkAsValid(self);
-				var uiTag = config.ui ? $(".smarty-ui .smarty-tag.smarty-addr-" + id) : undefined;
+				var uiTag = config.ui && config.smartyTag ? $(".smarty-ui .smarty-tag.smarty-addr-" + id) : undefined;
 				if (config.target.indexOf("US") >= 0 && config.target.indexOf("INTERNATIONAL") < 0) {
 					if (self.isDomestic()) {
 						if (uiTag && !uiTag.is(":visible"))
