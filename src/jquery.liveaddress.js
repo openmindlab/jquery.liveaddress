@@ -2180,60 +2180,60 @@
 							self.set("address2", resp.address2, updateDomElement, true, e, false);
 						if (resp.address3)
 							self.set("address3", resp.address3, updateDomElement, true, e, false);
-						var addressLine4 = "";
-						addressLine4 = addAddressLine(addressLine4, resp.address4, resp.address5);
-						addressLine4 = addAddressLine(addressLine4, resp.address5, resp.address6);
-						addressLine4 = addAddressLine(addressLine4, resp.address6, resp.address7);
-						addressLine4 = addAddressLine(addressLine4, resp.address7, resp.address8);
-						addressLine4 = addAddressLine(addressLine4, resp.address8, resp.address9);
-						addressLine4 = addAddressLine(addressLine4, resp.address9, resp.address10);
-						addressLine4 = addAddressLine(addressLine4, resp.address10, resp.address11);
-						addressLine4 = addAddressLine(addressLine4, resp.address11, resp.address12);
+						var addressLine4 = resp.address4;
+						addressLine4 = addAddressLine(addressLine4, resp.address5);
+						addressLine4 = addAddressLine(addressLine4, resp.address6);
+						addressLine4 = addAddressLine(addressLine4, resp.address7);
+						addressLine4 = addAddressLine(addressLine4, resp.address8);
+						addressLine4 = addAddressLine(addressLine4, resp.address9);
+						addressLine4 = addAddressLine(addressLine4, resp.address10);
+						addressLine4 = addAddressLine(addressLine4, resp.address11);
+						addressLine4 = addAddressLine(addressLine4, resp.address12);
 						self.set("address4", addressLine4, updateDomElement, true, e, false);
 					} else if (this.getDomFields().address3) {
 						if (resp.address1)
 							self.set("address1", resp.address1, updateDomElement, true, e, false);
 						if (resp.address2)
 							self.set("address2", resp.address2, updateDomElement, true, e, false);
-						var addressLine3 = "";
-						addressLine3 = addAddressLine(addressLine3, resp.address3, resp.address4);
-						addressLine3 = addAddressLine(addressLine3, resp.address4, resp.address5);
-						addressLine3 = addAddressLine(addressLine3, resp.address5, resp.address6);
-						addressLine3 = addAddressLine(addressLine3, resp.address6, resp.address7);
-						addressLine3 = addAddressLine(addressLine3, resp.address7, resp.address8);
-						addressLine3 = addAddressLine(addressLine3, resp.address8, resp.address9);
-						addressLine3 = addAddressLine(addressLine3, resp.address9, resp.address10);
-						addressLine3 = addAddressLine(addressLine3, resp.address10, resp.address11);
-						addressLine3 = addAddressLine(addressLine3, resp.address11, resp.address12);
+						var addressLine3 = resp.address3;
+						addressLine3 = addAddressLine(addressLine3, resp.address4);
+						addressLine3 = addAddressLine(addressLine3, resp.address5);
+						addressLine3 = addAddressLine(addressLine3, resp.address6);
+						addressLine3 = addAddressLine(addressLine3, resp.address7);
+						addressLine3 = addAddressLine(addressLine3, resp.address8);
+						addressLine3 = addAddressLine(addressLine3, resp.address9);
+						addressLine3 = addAddressLine(addressLine3, resp.address10);
+						addressLine3 = addAddressLine(addressLine3, resp.address11);
+						addressLine3 = addAddressLine(addressLine3, resp.address12);
 						self.set("address3", addressLine3, updateDomElement, true, e, false);
 					} else if (this.getDomFields().address2) {
 						if (resp.address1)
 							self.set("address1", resp.address1, updateDomElement, true, e, false);
-						var addressLine2 = "";
-						addressLine2 = addAddressLine(addressLine2, resp.address2, resp.address3);
-						addressLine2 = addAddressLine(addressLine2, resp.address3, resp.address4);
-						addressLine2 = addAddressLine(addressLine2, resp.address4, resp.address5);
-						addressLine2 = addAddressLine(addressLine2, resp.address5, resp.address6);
-						addressLine2 = addAddressLine(addressLine2, resp.address6, resp.address7);
-						addressLine2 = addAddressLine(addressLine2, resp.address7, resp.address8);
-						addressLine2 = addAddressLine(addressLine2, resp.address8, resp.address9);
-						addressLine2 = addAddressLine(addressLine2, resp.address9, resp.address10);
-						addressLine2 = addAddressLine(addressLine2, resp.address10, resp.address11);
-						addressLine2 = addAddressLine(addressLine2, resp.address11, resp.address12);
+						var addressLine2 = resp.address2;
+						addressLine2 = addAddressLine(addressLine2, resp.address3);
+						addressLine2 = addAddressLine(addressLine2, resp.address4);
+						addressLine2 = addAddressLine(addressLine2, resp.address5);
+						addressLine2 = addAddressLine(addressLine2, resp.address6);
+						addressLine2 = addAddressLine(addressLine2, resp.address7);
+						addressLine2 = addAddressLine(addressLine2, resp.address8);
+						addressLine2 = addAddressLine(addressLine2, resp.address9);
+						addressLine2 = addAddressLine(addressLine2, resp.address10);
+						addressLine2 = addAddressLine(addressLine2, resp.address11);
+						addressLine2 = addAddressLine(addressLine2, resp.address12);
 						self.set("address2", addressLine2, updateDomElement, true, e, false);
 					} else if (this.getDomFields().address1) {
-						var addressLine1 = "";
-						addressLine1 = addAddressLine(addressLine1, resp.address1, resp.address2);
-						addressLine1 = addAddressLine(addressLine1, resp.address2, resp.address3);
-						addressLine1 = addAddressLine(addressLine1, resp.address3, resp.address4);
-						addressLine1 = addAddressLine(addressLine1, resp.address4, resp.address5);
-						addressLine1 = addAddressLine(addressLine1, resp.address5, resp.address6);
-						addressLine1 = addAddressLine(addressLine1, resp.address6, resp.address7);
-						addressLine1 = addAddressLine(addressLine1, resp.address7, resp.address8);
-						addressLine1 = addAddressLine(addressLine1, resp.address8, resp.address9);
-						addressLine1 = addAddressLine(addressLine1, resp.address9, resp.address10);
-						addressLine1 = addAddressLine(addressLine1, resp.address10, resp.address11);
-						addressLine1 = addAddressLine(addressLine1, resp.address11, resp.address12);
+						var addressLine1 = resp.address1;
+						addressLine1 = addAddressLine(addressLine1, resp.address2);
+						addressLine1 = addAddressLine(addressLine1, resp.address3);
+						addressLine1 = addAddressLine(addressLine1, resp.address4);
+						addressLine1 = addAddressLine(addressLine1, resp.address5);
+						addressLine1 = addAddressLine(addressLine1, resp.address6);
+						addressLine1 = addAddressLine(addressLine1, resp.address7);
+						addressLine1 = addAddressLine(addressLine1, resp.address8);
+						addressLine1 = addAddressLine(addressLine1, resp.address9);
+						addressLine1 = addAddressLine(addressLine1, resp.address10);
+						addressLine1 = addAddressLine(addressLine1, resp.address11);
+						addressLine1 = addAddressLine(addressLine1, resp.address12);
 						self.set("address1", addressLine1, updateDomElement, true, e, false);
 					}
 					if (resp.components.country_iso_3)
@@ -2286,11 +2286,12 @@
 			}
 		};
 
-		var addAddressLine = function (fullLine, addressLine, nextAddressLine) {
-			if (addressLine && nextAddressLine) {
-				if (fullLine != "")
+		var addAddressLine = function (fullLine, nextAddressLine) {
+			if (nextAddressLine) {
+				if (fullLine !== "") {
 					fullLine += ", ";
-				fullLine += addressLine;
+				}
+				fullLine += nextAddressLine;
 			}
 			return fullLine;
 		};
