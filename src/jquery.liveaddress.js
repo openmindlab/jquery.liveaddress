@@ -2125,20 +2125,15 @@
 					}
 					self.set(fieldKey, singleLineAddr, updateDomElement, true, e, false);
 				} else {
-					if (resp.addressee)
-						self.set("organization", resp.addressee, updateDomElement, true, e, false);
-					if (resp.delivery_line_1)
-						self.set("address1", resp.delivery_line_1, updateDomElement, true, e, false);
+					self.set("organization", resp.addressee, updateDomElement, true, e, false);
+					self.set("address1", resp.delivery_line_1, updateDomElement, true, e, false);
 					if (resp.delivery_line_2)
 						self.set("address2", resp.delivery_line_2, updateDomElement, true, e, false); // Rarely used; must otherwise be blank.
 					else
 						self.set("address2", "", updateDomElement, true, e, false);
-					if (resp.components.city_name)
-						self.set("locality", resp.components.city_name, updateDomElement, true, e, false);
-					if (resp.components.state_abbreviation)
-						self.set("administrative_area", resp.components.state_abbreviation, updateDomElement, true, e, false);
-					if (resp.components.zipcode && resp.components.plus4_code)
-						self.set("postal_code", resp.components.zipcode + "-" + resp.components.plus4_code, updateDomElement, true, e, false);
+					self.set("locality", resp.components.city_name, updateDomElement, true, e, false);
+					self.set("administrative_area", resp.components.state_abbreviation, updateDomElement, true, e, false);
+					self.set("postal_code", resp.components.zipcode + "-" + resp.components.plus4_code, updateDomElement, true, e, false);
 				}
 				self.set("address3", "", updateDomElement, true, e, false);
 				self.set("address4", "", updateDomElement, true, e, false);
@@ -2162,12 +2157,9 @@
 					self.set("freeform", singleLineAddr, updateDomElement, true, e, false);
 					self.set("country", countryLine, updateDomElement, true, e, false);
 				} else {
-					if (resp.organization)
-						self.set("organization", resp.organization, updateDomElement, true, e, false);
-					if (resp.components.locality)
-						self.set("locality", resp.components.locality, updateDomElement, true, e, false);
-					if (resp.components.administrative_area)
-						self.set("administrative_area", resp.components.administrative_area, updateDomElement, true, e, false);
+					self.set("organization", resp.organization, updateDomElement, true, e, false);
+					self.set("locality", resp.components.locality, updateDomElement, true, e, false);
+					self.set("administrative_area", resp.components.administrative_area, updateDomElement, true, e, false);
 					if (resp.components.postal_code_short) {
 						var fullPostalCode = resp.components.postal_code_short;
 						if (resp.components.postal_code_extra)
@@ -2234,8 +2226,7 @@
 						addressLine1 = addAddressLine(addressLine1, resp.address11, resp.address12);
 						self.set("address1", addressLine1, updateDomElement, true, e, false);
 					}
-					if (resp.components.country_iso_3)
-						self.set("country", resp.components.country_iso_3, updateDomElement, true, e, false);
+					self.set("country", resp.components.country_iso_3, updateDomElement, true, e, false);
 				}
 			}
 		};
