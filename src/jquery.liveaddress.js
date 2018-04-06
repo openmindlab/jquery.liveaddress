@@ -2088,16 +2088,18 @@
 		this.load(domMap, addressID);
 
 		this.set = function (key, value, updateDomElement, keepState, sourceEvent, suppressAutoVerify) {
-			if (typeof key === "string" && arguments.length >= 2)
-				return doSet(key, value, updateDomElement, keepState, sourceEvent, suppressAutoVerify);
-			else if (typeof key === "object") {
-				var successful = true;
-				for (var prop in key) {
-					if (key.hasOwnProperty(prop)) {
-						successful = doSet(prop, key[prop], updateDomElement, keepState, sourceEvent, suppressAutoVerify) ? successful : false;
+			if (typeof value !== "undefined") {
+				if (typeof key === "string" && arguments.length >= 2)
+					return doSet(key, value, updateDomElement, keepState, sourceEvent, suppressAutoVerify);
+				else if (typeof key === "object") {
+					var successful = true;
+					for (var prop in key) {
+						if (key.hasOwnProperty(prop)) {
+							successful = doSet(prop, key[prop], updateDomElement, keepState, sourceEvent, suppressAutoVerify) ? successful : false;
+						}
 					}
+					return successful;
 				}
-				return successful;
 			}
 		};
 
