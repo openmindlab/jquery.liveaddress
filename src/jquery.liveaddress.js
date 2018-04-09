@@ -2228,13 +2228,32 @@
 			}
 		};
 
-		var removeComponentFromAddressLine = function (addressComponent, componentName, lineNumber, resp) {
+		var removeComponentFromAddressLine = function (addressComponent, componentName, addressLineComponent, resp) {
 			if (addressComponent.indexOf(componentName) !== -1) {
-				var addressLineComponent = "address" + lineNumber;
-				var regex = new RegExp(" *" + resp.components[componentName] + " *", "g");
+				var regex = new RegExp(resp.components[componentName], "g");
 				var newAddressLine = resp[addressLineComponent].replace(regex, "");
-				newAddressLine = newAddressLine.replace(/^\W *| *\W/, "");
 				resp[addressLineComponent] = newAddressLine;
+			}
+		};
+
+		var removeExtraWhitespace = function (addressLineComponent, resp) {
+			var addressLine = resp[addressLineComponent];
+
+			removeLeadingWhitespace();
+			removeTrailingWhitespace();
+			replaceMultipleWhitespaceWithSingle();
+			resp[addressLineComponent] = addressLine;
+
+			function removeLeadingWhitespace() {
+				addressLine = addressLine.replace(/^\s+/g, "");
+			}
+
+			function removeTrailingWhitespace() {
+				addressLine = addressLine.replace(/\s+$/g, "");
+			}
+
+			function replaceMultipleWhitespaceWithSingle() {
+				addressLine = addressLine.replace(/\s+/g, " ");
 			}
 		};
 
@@ -2251,21 +2270,23 @@
 
 		var removeComponentsFromAddressLines = function (resp) {
 			if (resp.metadata.hasOwnProperty("address_format")) {
-				var componentsToRemove = [
-					"locality",
-					"administrative_area",
-					"postal_code",
-					"country"
-				];
 				var addressFormatLines = resp.metadata.address_format.split("|");
 
 				for (var addressLineNumber in addressFormatLines) {
+					var componentsToRemove = [
+						"locality",
+						"administrative_area",
+						"postal_code",
+						"country"
+					];
 					var addressComponent = addressFormatLines[addressLineNumber];
 					var lineNumberAsInt = parseInt(addressLineNumber) + 1;
+					var addressLineComponent = "address" + lineNumberAsInt;
 
 					componentsToRemove.map(function (componentName) {
-						removeComponentFromAddressLine(addressComponent, componentName, lineNumberAsInt, resp);
+						removeComponentFromAddressLine(addressComponent, componentName, addressLineComponent, resp);
 					});
+					removeExtraWhitespace(addressLineComponent, resp);
 				}
 			} else {
 				emptyLastNonEmptyAddressLine(resp);
