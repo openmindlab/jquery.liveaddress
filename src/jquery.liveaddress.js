@@ -2169,8 +2169,8 @@
 					removeComponentsFromAddressLines(resp);
 					if (this.getDomFields().address4) {
 						self.set("address1", resp.address1, updateDomElement, true, e, false);
-						self.set("address2", addAddressLine("", resp.address2, resp.address3), updateDomElement, true, e, false);
-						self.set("address3", addAddressLine("", resp.address3, resp.address4), updateDomElement, true, e, false);
+						self.set("address2", resp.address2, updateDomElement, true, e, false);
+						self.set("address3", resp.address3, updateDomElement, true, e, false);
 
 						var addressLine4 = resp.address4;
 						addressLine4 = addAddressLine(addressLine4, resp.address5, resp.address6);
@@ -2183,7 +2183,7 @@
 						self.set("address4", addressLine4, updateDomElement, true, e, false);
 					} else if (this.getDomFields().address3) {
 						self.set("address1", resp.address1, updateDomElement, true, e, false);
-						self.set("address2", addAddressLine("", resp.address2, resp.address3), updateDomElement, true, e, false);
+						self.set("address2", resp.address2, updateDomElement, true, e, false);
 
 						var addressLine3 = resp.address3;
 						addressLine3 = addAddressLine(addressLine3, resp.address4, resp.address5);
