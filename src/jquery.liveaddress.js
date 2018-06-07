@@ -690,7 +690,6 @@
 								containerUi.on("mouseleave", ".smarty-active-suggestion", function () {
 									$(this).removeClass("smarty-active-suggestion");
 								});
-								strField.attr("autocomplete", "off"); // Tell Firefox to keep quiet
 
 								strField.keydown({
 									containerUi: containerUi,
