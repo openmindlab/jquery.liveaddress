@@ -1216,10 +1216,41 @@
 		function disableBrowserAutofill(dom) {
 			//Does not disable autofill if config.autocomplete is disabled
 			if (config.autocomplete > 0) {
-				for (var i = 0; i < dom.getElementsByTagName("input").length; i++) {
-					dom.getElementsByTagName("input")[i].autocomplete = "smartystreets";
+				const uniqueElementIds = getUniqueAddressInputIds();
+				for (var i = 0; i < uniqueElementIds.length; i++) {
+					const id = uniqueElementIds[i];
+					const elem = dom.querySelector(normalizeId(id));
+					if (elem) {
+						elem.autocomplete = "smartystreets";
+					}
 				}
 			}
+		}
+
+		function normalizeId(id) {
+			return '#' + id.replace('#', '');
+		}
+
+		function getUniqueAddressInputIds() {
+			const uniqueElementIds = [];
+
+			config.addresses.forEach(address => {
+				// These might be strings, or maybe dom input references
+				const objs = Object.keys(address).map(key => address[key]);
+				objs.forEach((obj) => {
+					let id;
+					if (typeof obj === 'string') {
+						id = obj;
+					} else {
+						id = obj.id;
+					}
+					if (!uniqueElementIds.includes(id)) {
+						uniqueElementIds.push(id);
+					}
+				});
+			});
+
+			return uniqueElementIds;
 		}
 
 		function addDefaultToStateDropdown(dom) {
