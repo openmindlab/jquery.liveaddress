@@ -2430,18 +2430,12 @@
 			if (fields.address1 && !fields.address1.value) {
 				return false;
 			}
-			if (fields.postal_code && fields.locality && fields.administrative_area && !fields.postal_code.value && !fields.locality.value && !(stateText.length > 0)) {
-				return false;
-			} else if (fields.postal_code && fields.locality && fields.administrative_area && !fields.postal_code.value && fields.locality.value && !(stateText.length > 0)) {
-				return false;
-			} else if (fields.postal_code && fields.locality && fields.administrative_area && !fields.postal_code.value && !fields.locality.value && stateText.length > 0) {
-				return false;
-			} else if (fields.postal_code && !fields.locality && !fields.administrative_area && !fields.postal_code.value) {
-				return false;
-			} else if (!fields.postal_code && fields.locality && fields.administrative_area && (!fields.locality.value || !(stateText.length > 0))) {
-				return false;
-			}
-			return true;
+
+			var postalCodeIsPresentAndHasValue = !!(fields.postal_code && fields.postal_code.value);
+			var administrativeAreaIsPresentAndHasValue = !!(fields.administrative_area && stateText.length > 0);
+			var localityIsPresentAndHasValue = !!(fields.locality && fields.locality.value);
+
+			return postalCodeIsPresentAndHasValue || (localityIsPresentAndHasValue && administrativeAreaIsPresentAndHasValue);
 		};
 
 		this.toRequestIntl = function () {
