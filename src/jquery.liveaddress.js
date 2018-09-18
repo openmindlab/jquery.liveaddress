@@ -2424,8 +2424,8 @@
 			if (fields.country && !fields.country.value) {
 				return false;
 			}
-			if (fields.freeform && !fields.freeform.value) {
-				return false;
+			if (fields.freeform) {
+				return fields.freeform.value;
 			}
 			if (fields.address1 && !fields.address1.value) {
 				return false;
