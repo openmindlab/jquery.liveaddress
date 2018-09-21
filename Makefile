@@ -4,6 +4,7 @@ VERSION       := $(shell tagit -p --dry-run)
 VERSION_FILE1 := package.json
 VERSION_FILE2 := package-lock.json
 VERSION_FILE3 := liveaddress.jquery.json
+VERSION_FILE4 := src/jquery.liveaddress.js
 
 clean: unversion
 	rm -rf node_modules workspace
@@ -23,9 +24,10 @@ version:
 	sed -i -E 's/^  "version": "0\.0\.0",/  "version": "$(VERSION)",/g' "$(VERSION_FILE1)"
 	sed -i -E 's/^  "version": "0\.0\.0",/  "version": "$(VERSION)",/g' "$(VERSION_FILE2)"
 	sed -i -E 's/^  "version": "0\.0\.0",/  "version": "$(VERSION)",/g' "$(VERSION_FILE3)"
+	sed -i -E 's/^\tvar version \= "0.0.0";/\tvar version \= "$(VERSION)";/g' "$(VERSION_FILE4)"
 
 unversion:
-	git checkout "$(VERSION_FILE1)" "$(VERSION_FILE2)" "$(VERSION_FILE3)"
+	git checkout "$(VERSION_FILE1)" "$(VERSION_FILE2)" "$(VERSION_FILE3)" "$(VERSION_FILE4)"
 
 ##########################################################
 
