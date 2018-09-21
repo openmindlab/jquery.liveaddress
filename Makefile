@@ -20,9 +20,9 @@ upload:
 	(cd resources && python minify.py && python publish.py "$(VERSION)")
 
 version:
-	sed -i -E 's/^ "version": "0\.0\.0",/ "version": "$(VERSION)",/g' "$(VERSION_FILE1)"
-	sed -i -E 's/^ "version": "0\.0\.0",/ "version": "$(VERSION)",/g' "$(VERSION_FILE2)"
-	sed -i -E 's/^ "version": "0\.0\.0",/ "version": "$(VERSION)",/g' "$(VERSION_FILE3)"
+	sed -i -E 's/^  "version": "0\.0\.0",/  "version": "$(VERSION)",/g' "$(VERSION_FILE1)"
+	sed -i -E 's/^  "version": "0\.0\.0",/  "version": "$(VERSION)",/g' "$(VERSION_FILE2)"
+	sed -i -E 's/^  "version": "0\.0\.0",/  "version": "$(VERSION)",/g' "$(VERSION_FILE3)"
 
 unversion:
 	git checkout "$(VERSION_FILE1)" "$(VERSION_FILE2)" "$(VERSION_FILE3)"
