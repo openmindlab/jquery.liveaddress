@@ -7,6 +7,6 @@ services:
     environment:
       - SMARTY_AUTH_ID
       - SMARTY_AUTH_TOKEN
-      - AWS_ACCESS_KEY
-      - AWS_SECRET_KEY
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
       - AWS_CLOUDFRONT_DISTRIBUTION_ID

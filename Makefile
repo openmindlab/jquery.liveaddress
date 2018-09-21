@@ -2,12 +2,15 @@
 
 VERSION := $(shell tagit -p --dry-run)
 
+clean:
+	rm -rf node_modules workspace
+
 compile: node_modules
 
 node_modules:
 	npm install && git checkout package-lock.json
 
-publish: compile
+publish: clean compile
 	(cd resources && python minify.py && python publish.py "$(VERSION)")
 
 ##########################################################
@@ -19,4 +22,4 @@ release:
 	docker-compose run plugin make publish && tagit -p && git push origin --tags
 
 # node_modules is a real directory target
-.PHONY: compile publish workspace release
+.PHONY: clean compile publish workspace release
