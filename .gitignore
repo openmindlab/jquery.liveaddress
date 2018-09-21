@@ -1,7 +1,8 @@
-.DS_Store
-_gitignore
-*.pyc
-.idea
-working
-resources/instructions.txt
+*DS_Store*
+*.swp
+__MACOSX
+/.idea/
+/workspace/
 /node_modules/
+/dist/
+*.pyc
