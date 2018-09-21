@@ -1,13 +1,11 @@
 #!/usr/bin/make -f
 
-VERSION           := $(shell tagit -p --dry-run)
-VERSION_FILE1     := package.json
-VERSION_FILE2     := package-lock.json
+VERSION := $(shell tagit -p --dry-run)
 
 compile: node_modules
 
 node_modules:
-	npm install
+	npm install && git checkout package-lock.json
 
 publish: compile
 	(cd resources && python minify.py && python publish.py "$(VERSION)")
