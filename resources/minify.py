@@ -10,7 +10,7 @@ import os
 
 
 SOURCE = '../src'
-WORKING = './working'
+WORKING = '../workspace'
 JQUERY_PLUGIN = 'jquery.liveaddress.js'
 IMAGE = 'dots.gif'
 MINIFICATION_ERROR = 'ERROR: A file failed the minification process ({0}). '
@@ -46,7 +46,7 @@ def minify(filename, destination):
 
 
 def yui_args(filename, destination):
-    return ['java', '-jar', 'yuicompressor-2.4.7.jar', filename, '-o', destination]
+    return ['yuicompressor', filename, '-o', destination]
 
 
 def gzip_file(source):

@@ -5,6 +5,7 @@ This script is used by SmartyStreets when deploying a new version of the jquery.
 
 import os.path as path
 import os
+import sys
 import boto
 from boto.s3.bucket import Bucket
 from boto.s3.connection import S3Connection, OrdinaryCallingFormat
@@ -30,9 +31,6 @@ def connect_to_s3():
 
 
 def publish(bucket, cloudfront):
-    if 'branch' not in os.environ:
-        os.environ['branch'] = raw_input('Enter the major.minor version: ')
-
     resources = []
     
     for root, dirs, files in os.walk(WORKING_DIRECTORY):
@@ -42,7 +40,7 @@ def publish(bucket, cloudfront):
                 resource_path = upload_to_s3(local_path, bucket)
                 resources.append(resource_path)
     
-    distribution = os.environ.get('cloudfront_distribution_id') or raw_input('Enter the cloudfront distribution id: ')
+    distribution = os.environ.get('AWS_CLOUDFRONT_DISTRIBUTION_ID') or raw_input('Enter the cloudfront distribution id: ')
     distribution = distribution.strip()
     if distribution:
         print "Creating cloudfront invalidation for all uploaded resources..."
@@ -52,10 +50,9 @@ def publish(bucket, cloudfront):
 
 def upload_to_s3(resource, bucket):
     entry = Key(bucket)
-    entry.key = path.join(DESTINATION.format(os.environ['branch']), path.basename(resource))
+    entry.key = path.join(DESTINATION.format(VERSION), path.basename(resource))
     entry.set_metadata('Content-Encoding', 'gzip')
     entry.set_metadata('Content-Type', get_mime_type(resource))
-
 
     print 'Publishing {0} to {1}...'.format(resource, entry.key)
     entry.set_contents_from_filename(resource)
@@ -64,9 +61,9 @@ def upload_to_s3(resource, bucket):
 
 EXCLUDES = ['.DS_Store']
 DESTINATION = '/jquery.liveaddress/{0}'
-WORKING_DIRECTORY = './working/'
+WORKING_DIRECTORY = '../workspace/'
 S3_BUCKET = 'static.smartystreets.com'
-
+VERSION = '.'.join(sys.argv[1].split('.')[0:2])
 
 if __name__ == '__main__':
     main()
