@@ -401,7 +401,7 @@
 			makeAddress: function (addressData) {
 				if (typeof addressData !== "object")
 					return instance.getMappedAddressByID(addressData) || new Address({
-							address1: addressData
+							freeform: addressData
 						});
 				else
 					return new Address(addressData);
