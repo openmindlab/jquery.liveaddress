@@ -114,7 +114,7 @@ describe("The basic form", function () {
 			liveaddress.on("Completed", function (event, data, previousHandler) {
 				expect($("#address1").val()).toBe("Avenida Atlântica, 974");
 				expect($("#address2").val()).toBe("Copa");
-				expect($("#address3").val()).toBe("");
+				expect($("#address3").val()).toBe("-");
 				expect($("#address4").val()).toBe("");
 				previousHandler(event, data);
 				done();
@@ -130,8 +130,8 @@ describe("The basic form", function () {
 
 			liveaddress.on("Completed", function (event, data, previousHandler) {
 				expect($("#address1").val()).toBe("Rua Padre Antônio D'ângelo, 121");
-				expect($("#address2").val()).toBe("CasaVerde");
-				expect($("#address3").val()).toBe("");
+				expect($("#address2").val()).toBe("Casa Verde");
+				expect($("#address3").val()).toBe("-");
 				expect($("#address4").val()).toBe("");
 				previousHandler(event, data);
 				done();
