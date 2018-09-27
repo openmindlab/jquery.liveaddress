@@ -674,7 +674,7 @@
 
 								containerUi.hide().appendTo("body");
 
-								containerUi.on("click", ".smarty-suggestion", {
+								containerUi.on("mousedown", ".smarty-suggestion", {
 									addr: addr,
 									containerUi: containerUi
 								}, function (event) {
