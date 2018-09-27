@@ -2079,6 +2079,11 @@
 					}
 				}
 
+				var address = this;
+				$(domMap.address1, domMap.freeform).blur(function () {
+					ui.hideAutocomplete(address.id());
+				});
+
 				state = "changed";
 			}
 		};
