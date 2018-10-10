@@ -570,7 +570,9 @@
 			"box-shadow: 1px 1px 3px #555; }" + ".smarty-suggestion { display: block; color: #444; " +
 			"text-decoration: none; font-size: 12px; padding: 1px 5px; }" + ".smarty-active-suggestion " +
 			"{ background: #EEE; color: #000; border: none; outline: none; }" + ".smarty-no-suggestions " +
-			"{ padding: 1px 5px; font-size: 12px; color: #AAA; font-style: italic; }" + "</style>";
+			"{ padding: 1px 5px; font-size: 12px; color: #AAA; font-style: italic; } " +
+			".smarty-debug-input { background: #ffffcc !important; } " +
+			".smarty-debug-button { color: #4ba341 !important; } " + "</style>";
 
 		this.postMappingOperations = function () {
 			// Injects materials into the DOM, binds to form submit events, etc... very important.
@@ -849,7 +851,7 @@
 					// Highlight the submit button
 					if (config.debug) {
 						for (var j = 0; j < formSubmitElements.length; j++) {
-							formSubmitElements[j].style.color = "#4BA341";
+							$(formSubmitElements[j]).addClass("smarty-debug-button");
 						}
 					}
 
@@ -1176,10 +1178,10 @@
 					for (var prop in doms) {
 						if (doms.hasOwnProperty(prop)) {
 							if (config.debug) {
-								$(doms[prop]).css("background", "none").attr("placeholder", "");
+								$(doms[prop]).removeClass("smarty-debug-input").attr("placeholder", "");
 								var submitButtons = $(config.submitSelector);
 								for (var k = 0; k < submitButtons.length; k++) {
-									submitButtons[k].style.color = "black";
+									$(submitButtons[k]).removeClass("smarty-debug-button");
 								}
 							}
 							$(doms[prop]).off("change", actionsOnChange);
@@ -2036,7 +2038,7 @@
 
 						if (!isData) {
 							if (config.debug) {
-								elem.css("background", "#FFFFCC");
+								$(elem).addClass("smarty-debug-input");
 								elem.attr("placeholder", prop + ":" + id);
 							}
 							fields[prop].dom = domMap[prop];
@@ -2800,7 +2802,7 @@
 
 		// Hides the autocomplete UI when necessary
 		// Don't hide unless the user didn't click on the autocomplete suggestion
-		// Helps handle iOS arrow "tabs"
+		// Helps handle iOS a
 		if (clickyIsBoldAndNotActive() || clickyIsNotBoldAndNotActive() || clickyAndTypeyAreNullAndAutocompleteVisible()) {
 			ui.hideAutocomplete(e.data.address.id());
 		}
