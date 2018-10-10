@@ -2802,7 +2802,7 @@
 
 		// Hides the autocomplete UI when necessary
 		// Don't hide unless the user didn't click on the autocomplete suggestion
-		// Helps handle iOS a
+		// Helps handle iOS arrow "tabs"
 		if (clickyIsBoldAndNotActive() || clickyIsNotBoldAndNotActive() || clickyAndTypeyAreNullAndAutocompleteVisible()) {
 			ui.hideAutocomplete(e.data.address.id());
 		}
