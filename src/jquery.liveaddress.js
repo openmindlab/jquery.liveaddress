@@ -2312,7 +2312,7 @@
 		};
 
 		var addAddressLine = function (fullLine, addressLine, nextAddressLine) {
-			if (addressLine && nextAddressLine) {
+			if (typeof addressLine !== "undefined" && typeof nextAddressLine !== "undefined") {
 				if (fullLine !== "") {
 					fullLine += ", ";
 				}

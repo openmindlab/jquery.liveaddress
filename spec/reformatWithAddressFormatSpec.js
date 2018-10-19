@@ -84,18 +84,35 @@ describe("The basic form", function () {
 				"metadata": {},
 				"analysis": {"verification_status": "Verified", "address_precision": "Premise"}
 			}
+		],
+		[
+			{
+				"address1": "Urb Garcia",
+				"address2": "1 Calle a",
+				"address3": "San Juan PR 00926-5108",
+				"components": {
+					"administrative_area": "PR",
+					"sub_administrative_area": "San Juan",
+					"country_iso_3": "USA",
+					"locality": "San Juan",
+					"dependent_locality": "Urb Garcia",
+					"postal_code": "009265108",
+					"postal_code_short": "00926",
+					"postal_code_extra": "5108",
+					"premise": "1",
+					"premise_number": "1",
+					"thoroughfare": "Calle a",
+					"thoroughfare_name": "Calle a"
+				},
+				"metadata": {},
+				"analysis": {"verification_status": "Verified", "address_precision": "DeliveryPoint"}
+			}
 		]
 	];
 
-	insertBasicForm();
-
-	beforeEach(function () {
-		liveaddress = initPlugin();
-	});
-
 	afterEach(function () {
 		liveaddress.deactivate();
-		fillInAddress(0);
+		removeForm();
 	});
 
 	function setupAjaxSpy(testNumber) {
@@ -106,8 +123,19 @@ describe("The basic form", function () {
 		});
 	}
 
+	function setupBasicForm() {
+		insertBasicForm();
+		liveaddress = initPlugin();
+	}
+
+	function setupFormWithOneAddressLine() {
+		insertFormWithOneAddressLine();
+		liveaddress = initPlugin();
+	}
+
 	it("should fill in the address properly (test 1)", function (done) {
-		// Dumb callback because setting up the plugin is asynchronous
+		setupBasicForm();
+
 		setTimeout(function () {
 			setupAjaxSpy(1);
 
@@ -125,6 +153,8 @@ describe("The basic form", function () {
 	});
 
 	it("should fill in the address properly (test 2)", function (done) {
+		setupBasicForm();
+
 		setTimeout(function () {
 			setupAjaxSpy(2);
 
@@ -142,6 +172,8 @@ describe("The basic form", function () {
 	});
 
 	it("should fill in the US address properly (test 3)", function (done) {
+		setupBasicForm();
+
 		setTimeout(function () {
 			setupAjaxSpy(3);
 
@@ -157,10 +189,34 @@ describe("The basic form", function () {
 			fillInAddress(3);
 		}, 10);
 	});
+
+	it("should fill in the US address properly (test 4)", function (done) {
+		setupFormWithOneAddressLine();
+
+		setTimeout(function () {
+			setupAjaxSpy(4);
+
+			liveaddress.on("Completed", function (event, data, previousHandler) {
+				expect($("#address1").val()).toBe("Urb Garcia, 1 Calle a");
+				previousHandler(event, data);
+				done();
+			});
+
+			fillInAddress(4);
+		}, 10);
+	});
 });
 
 function insertBasicForm() {
-	document.body.insertAdjacentHTML("afterbegin", "<form><input id='address1'><input id='address2'><input id='address3'><input id='address4'><input id='locality'><input id='administrative_area'><input id='postal_code'><input id='country'></form>");
+	document.body.insertAdjacentHTML("afterbegin", "<form id='test-form'><input id='address1'><input id='address2'><input id='address3'><input id='address4'><input id='locality'><input id='administrative_area'><input id='postal_code'><input id='country'></form>");
+}
+
+function insertFormWithOneAddressLine() {
+	document.body.insertAdjacentHTML("afterbegin", "<form id='test-form'><input id='address1'><input id='locality'><input id='administrative_area'><input id='postal_code'><input id='country'></form>");
+}
+
+function removeForm() {
+	document.body.removeChild(document.getElementById("test-form"));
 }
 
 function initPlugin() {
@@ -219,6 +275,12 @@ function fillInAddress(testNumber) {
 			locality: "Provo",
 			administrative_area: "UT",
 			postal_code: "",
+			country: "USA"
+		}, {
+			address1: "1 calle a",
+			locality: "San Juan",
+			administrative_area: "PR",
+			postal_code: "00926",
 			country: "USA"
 		}
 	];
