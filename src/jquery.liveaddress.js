@@ -75,8 +75,9 @@
 				console.log("jQuery version " + $.fn.jquery + " found, but LiveAddress requires jQuery version 1.5 or higher. Aborting.");
 				return false;
 			}
-		} else
+		} else {
 			return false;
+		}
 
 		if (arg.debug)
 			console.log("LiveAddress API jQuery Plugin version " + version + " (Debug mode)");
