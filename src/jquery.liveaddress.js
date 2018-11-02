@@ -1253,7 +1253,7 @@
 			});
 
 			allIds.forEach(function (id) {
-				if (!uniqueIds.includes(id)) {
+				if (uniqueIds.indexOf(id) < 0) {
 					uniqueIds.push(id);
 				}
 			});
