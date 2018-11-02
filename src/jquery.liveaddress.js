@@ -1227,13 +1227,13 @@
 				console.log("Done cleaning up; ready for new mapping.");
 		};
 
-		function disableBrowserAutofill(dom) {
+		function disableBrowserAutofill(address) {
 			//Does not disable autofill if config.autocomplete is disabled
 			if (config.autocomplete > 0) {
-				const uniqueElementIds = getUniqueAddressInputIds();
+				var uniqueElementIds = getUniqueAddressInputIds(address);
 				for (var i = 0; i < uniqueElementIds.length; i++) {
-					const id = uniqueElementIds[i];
-					const elem = dom.querySelector(normalizeId(id));
+					var id = uniqueElementIds[i];
+					var elem = document.querySelector(id);
 					if (elem) {
 						elem.autocomplete = "smartystreets";
 					}
@@ -1242,29 +1242,23 @@
 		}
 
 		function normalizeId(id) {
-			return '#' + id.replace('#', '');
+			return "#" + id;
 		}
 
-		function getUniqueAddressInputIds() {
-			const uniqueElementIds = [];
+		function getUniqueAddressInputIds(address) {
+			var uniqueIds = [];
 
-			config.addresses.forEach(address => {
-				// These might be strings, or maybe dom input references
-				const objs = Object.keys(address).map(key => address[key]);
-				objs.forEach((obj) => {
-					let id;
-					if (typeof obj === 'string') {
-						id = obj;
-					} else {
-						id = obj.id;
-					}
-					if (!uniqueElementIds.includes(id)) {
-						uniqueElementIds.push(id);
-					}
-				});
+			var allIds = Object.keys(address).map(function (key) {
+				return normalizeId(address[key].id);
 			});
 
-			return uniqueElementIds;
+			allIds.forEach(function (id) {
+				if (!uniqueIds.includes(id)) {
+					uniqueIds.push(id);
+				}
+			});
+
+			return uniqueIds;
 		}
 
 		function addDefaultToStateDropdown(dom) {
@@ -1355,7 +1349,7 @@
 					if (!$(formDom).data(formDataProperty)) {
 						// Mark the form as mapped then add it to our list
 						$(formDom).data(formDataProperty, 1);
-						disableBrowserAutofill(form.dom);
+						disableBrowserAutofill(address);
 						addDefaultToStateDropdown(form.dom);
 						formsFound.push(form);
 					} else {
