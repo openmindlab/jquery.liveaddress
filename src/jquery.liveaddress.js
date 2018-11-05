@@ -1234,9 +1234,9 @@
 				var uniqueElementIds = getUniqueAddressInputIds(address);
 				for (var i = 0; i < uniqueElementIds.length; i++) {
 					var id = uniqueElementIds[i];
-					var elem = document.querySelector(id);
-					if (elem) {
-						elem.autocomplete = "smartystreets";
+					var elem = $(id);
+					if (elem.length > 0) {
+						elem.attr("autocomplete", "smartystreets");
 					}
 				}
 			}
