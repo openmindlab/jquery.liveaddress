@@ -1212,7 +1212,7 @@
 			}
 
 			$(".smarty-ui").off("click", ".smarty-suggestion").off("mouseover", ".smarty-suggestion").off("mouseleave", ".smarty-suggestion").remove();
-			
+
 			if (config.smartyTag) {
   				$("body").off("click", ".smarty-undo");
   				$("body").off("click", ".smarty-tag-grayed");
@@ -1231,35 +1231,13 @@
 		function disableBrowserAutofill(address) {
 			//Does not disable autofill if config.autocomplete is disabled
 			if (config.autocomplete > 0) {
-				var uniqueElementIds = getUniqueAddressInputIds(address);
-				for (var i = 0; i < uniqueElementIds.length; i++) {
-					var id = uniqueElementIds[i];
-					var elem = $(id);
+				Object.keys(address).map(function (key) {
+					var elem = $(address[key]);
 					if (elem.length > 0) {
 						elem.attr("autocomplete", "smartystreets");
 					}
-				}
+				});
 			}
-		}
-
-		function normalizeId(id) {
-			return "#" + id;
-		}
-
-		function getUniqueAddressInputIds(address) {
-			var uniqueIds = [];
-
-			var allIds = Object.keys(address).map(function (key) {
-				return normalizeId(address[key].id);
-			});
-
-			allIds.forEach(function (id) {
-				if (uniqueIds.indexOf(id) < 0) {
-					uniqueIds.push(id);
-				}
-			});
-
-			return uniqueIds;
 		}
 
 		function addDefaultToStateDropdown(dom) {
