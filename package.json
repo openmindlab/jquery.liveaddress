@@ -52,7 +52,7 @@
   "download": "https://d79i1fxsrar4t.cloudfront.net/jquery.liveaddress/5.1/jquery.liveaddress.min.js",
   "main": "src/jquery.liveaddress.js",
   "scripts": {
-    "build": "browserify src/jquery.liveaddress.js -o dist/jquery.liveaddress.js"
+    "build": "browserify src/jquery.liveaddress.js -o workspace/jquery.liveaddress.js | browserify src/jquery.liveaddress.js -o workspace/jquery.liveaddress.min.js -p [tinyify --no-flat]"
   },
   "dependencies": {
     "jquery": ">=1.5.1"
@@ -63,6 +63,7 @@
     "jasmine-ajax": "^3.4.0",
     "karma": "^3.0.0",
     "karma-chrome-launcher": "^2.2.0",
-    "karma-jasmine": "^1.1.0"
+    "karma-jasmine": "^1.1.0",
+    "tinyify": "^2.4.3"
   }
 }
