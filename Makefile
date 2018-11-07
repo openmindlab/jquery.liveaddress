@@ -7,7 +7,6 @@ VERSION_FILE3 := liveaddress.jquery.json
 VERSION_FILE4 := src/jquery.liveaddress.js
 
 clean: unversion
-	rm -rf node_modules workspace
 
 compile: node_modules
 
@@ -21,21 +20,19 @@ upload:
 	(cd resources && python minify.py && python publish.py "$(VERSION)")
 
 version:
-	sed -i -E 's/^  "version": "0\.0\.0",/  "version": "$(VERSION)",/g' "$(VERSION_FILE1)"
-	sed -i -E 's/^  "version": "0\.0\.0",/  "version": "$(VERSION)",/g' "$(VERSION_FILE2)"
-	sed -i -E 's/^  "version": "0\.0\.0",/  "version": "$(VERSION)",/g' "$(VERSION_FILE3)"
-	sed -i -E 's/^\tvar version \= "0.0.0";/\tvar version \= "$(VERSION)";/g' "$(VERSION_FILE4)"
+	sed -i.bak -e 's/^  "version": "0\.0\.0",/  "version": "$(VERSION)",/g' "$(VERSION_FILE1)" && rm -f "$(VERSION_FILE1).bak"
+	sed -i.bak -e 's/^  "version": "0\.0\.0",/  "version": "$(VERSION)",/g' "$(VERSION_FILE2)" && rm -f "$(VERSION_FILE2).bak"
+	sed -i.bak -e 's/^  "version": "0\.0\.0",/  "version": "$(VERSION)",/g' "$(VERSION_FILE3)" && rm -f "$(VERSION_FILE3).bak"
+	sed -i.bak -e 's/^\tvar version \= "0.0.0";/\tvar version \= "$(VERSION)";/g' "$(VERSION_FILE4)" && rm -f "$(VERSION_FILE4).bak"
 
 unversion:
 	git checkout "$(VERSION_FILE1)" "$(VERSION_FILE2)" "$(VERSION_FILE3)" "$(VERSION_FILE4)"
+	rm "$(VERSION_FILE1).bak" "$(VERSION_FILE2).bak" "$(VERSION_FILE3).bak" "$(VERSION_FILE4).bak" 
 
 ##########################################################
 
-workspace:
-	docker-compose run plugin /bin/sh
-
-release:
-	docker-compose run plugin make publish && tagit -p && git push origin --tags
+release: publish
+	tagit -p && git push origin --tags
 
 # node_modules is a real directory target
-.PHONY: clean compile publish upload version unversion workspace release
+.PHONY: clean compile publish upload version unversion release
