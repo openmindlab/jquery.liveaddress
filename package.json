@@ -52,7 +52,7 @@
   "download": "https://d79i1fxsrar4t.cloudfront.net/jquery.liveaddress/5.1/jquery.liveaddress.min.js",
   "main": "src/jquery.liveaddress.js",
   "scripts": {
-    "build-dev": "browserify src/jquery.liveaddress.js -o dist/jquery.liveaddress.js"
+    "build": "browserify src/jquery.liveaddress.js -o dist/jquery.liveaddress.js"
   },
   "dependencies": {
     "jquery": ">=1.5.1"
