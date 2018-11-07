@@ -29,7 +29,7 @@ version:
 
 unversion:
 	git checkout "$(VERSION_FILE1)" "$(VERSION_FILE2)" "$(VERSION_FILE3)" "$(VERSION_FILE4)"
-	rm "$(VERSION_FILE1).bak" "$(VERSION_FILE2).bak" "$(VERSION_FILE3).bak" "$(VERSION_FILE4).bak" 
+	rm -f "$(VERSION_FILE1).bak" "$(VERSION_FILE2).bak" "$(VERSION_FILE3).bak" "$(VERSION_FILE4).bak" 
 
 ##########################################################
 
