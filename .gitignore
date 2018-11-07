@@ -4,5 +4,4 @@ __MACOSX
 /.idea/
 /workspace/
 /node_modules/
-/dist/
 *.pyc

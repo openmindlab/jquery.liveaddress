@@ -7,6 +7,7 @@ VERSION_FILE3 := liveaddress.jquery.json
 VERSION_FILE4 := src/liveAddressPlugin.js
 
 clean: unversion
+	rm -rf workspace
 
 compile: node_modules
 
@@ -16,9 +17,9 @@ node_modules:
 publish: clean compile version upload unversion
 
 upload:
-	npm publish
-	npm run build
-	(cd resources && python publish.py "$(VERSION)")
+	npm publish \
+		&& npm run build \
+		&& (cd resources && python publish.py "$(VERSION)")
 
 version:
 	sed -i.bak -e 's/^  "version": "0\.0\.0",/  "version": "$(VERSION)",/g' "$(VERSION_FILE1)" && rm -f "$(VERSION_FILE1).bak"
