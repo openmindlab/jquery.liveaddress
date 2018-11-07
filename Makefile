@@ -4,7 +4,7 @@ VERSION       := $(shell tagit -p --dry-run)
 VERSION_FILE1 := package.json
 VERSION_FILE2 := package-lock.json
 VERSION_FILE3 := liveaddress.jquery.json
-VERSION_FILE4 := src/jquery.liveaddress.js
+VERSION_FILE4 := src/liveAddressPlugin.js
 
 clean: unversion
 
@@ -17,7 +17,8 @@ publish: clean compile version upload unversion
 
 upload:
 	npm publish
-	(cd resources && python minify.py && python publish.py "$(VERSION)")
+	npm run build
+	(cd resources && python publish.py "$(VERSION)")
 
 version:
 	sed -i.bak -e 's/^  "version": "0\.0\.0",/  "version": "$(VERSION)",/g' "$(VERSION_FILE1)" && rm -f "$(VERSION_FILE1).bak"
