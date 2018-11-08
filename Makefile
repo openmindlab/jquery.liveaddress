@@ -6,7 +6,7 @@ VERSION_FILE2 := package-lock.json
 VERSION_FILE3 := liveaddress.jquery.json
 VERSION_FILE4 := src/liveAddressPlugin.js
 
-clean: unversion
+clean:
 	rm -rf workspace
 
 compile: node_modules
