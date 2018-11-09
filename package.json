@@ -51,9 +51,6 @@
   "demo": "https://smartystreets.com/docs/plugins/website/examples",
   "download": "https://d79i1fxsrar4t.cloudfront.net/jquery.liveaddress/5.1/jquery.liveaddress.min.js",
   "main": "src/jquery.liveaddress.js",
-  "scripts": {
-    "build": "browserify src/jquery.liveaddress.js -o workspace/jquery.liveaddress.js | browserify src/jquery.liveaddress.js -o workspace/jquery.liveaddress.min.js -p [tinyify --no-flat]"
-  },
   "dependencies": {
     "jquery": ">=1.5.1"
   },

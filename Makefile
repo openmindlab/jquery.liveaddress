@@ -17,8 +17,10 @@ node_modules:
 publish: clean compile version upload unversion
 
 upload:
-	npm publish \
-		&& npm run build \
+	mkdir -p workspace \
+		&& npx browserify src/jquery.liveaddress.js | gzip -9 > workspace/jquery.liveaddress.js \
+		&& npx browserify src/jquery.liveaddress.js -p [tinyify --no-flat] | gzip -9 > workspace/jquery.liveaddress.min.js \
+		&& npm publish \
 		&& (cd resources && python publish.py "$(VERSION)")
 
 version:
