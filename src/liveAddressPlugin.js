@@ -13,8 +13,10 @@
  Latest stable version:  (See documentation)
  Bleeding-edge release:  https://github.com/smartystreets/jquery.liveaddress
 
- Feel free to contribute to this project on GitHub by
- submitting pull requests and reporting issues.
+ This project is now deprecated. If you're looking for a JavaScript library that wraps SmartyStreets API services,
+ SmartyStreets' JavaScript SDK is worth looking into.
+
+ https://github.com/smartystreets/smartystreets-javascript-sdk
  **/
 
 function liveAddress($, window, document) {
