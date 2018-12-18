@@ -1,6 +1,6 @@
 # DEPRECATED
 
-This plugin is no longer be maintained or updated.
+This plugin has been deprecated, so there will be no continued development on the project. If you're looking for a more flexible JavaScript solution for integration with SmartyStreets APIs, check out the [SmartyStreets JavaScript SDK](https://github.com/smartystreets/smartystreets-javascript-sdk).
 
 LiveAddress API jQuery Plugin
 ==================================
